@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import {
     Text,
     StyleSheet,
@@ -11,7 +11,7 @@ import {
     View,
 } from 'react-native';
 import BasePage from '../base/base';
-import { Flex, Icon, Checkbox, Modal,   DatePickerView } from '@ant-design/react-native';
+import { Flex, Icon, Checkbox, Modal, DatePickerView } from '@ant-design/react-native';
 import Macro from '../../utils/macro';
 import ScreenUtil from '../../utils/screen-util';
 import { connect } from 'react-redux';
@@ -20,13 +20,13 @@ import common from '../../utils/common';
 import LoadImage from '../../components/load-image';
 import TwoChange from '../../components/two-change';
 import NavigatorService from './navigator-service';
-import MyPopover from '../../components/my-popover'; 
+import MyPopover from '../../components/my-popover';
 import UDToast from '../../utils/UDToast';
 // import QRCode from 'react-native-qrcode-svg';
 import CommonView from '../../components/CommonView';
 import ActionPopover from '../../components/action-popover';
 import JianFei from '../../components/jian-fei';
-import ChaiFei from '../../components/chai-fei'; 
+import ChaiFei from '../../components/chai-fei';
 // import { upgrade } from 'rn-app-upgrade';
 
 
@@ -237,9 +237,9 @@ class FeeDetailPage extends BasePage {
                             NativeModules.LHNToast.startActivityFromJS('com.statistics.LKLPayActivity', {
                                 ...res,
                                 "proc_cd": "660000", //拉卡拉消费
-                                "pay_tp": "1",
-
+                                "pay_tp": "1"
                             });
+                            
                         } else if (posType === '威富通') {
                             this.props.navigation.push('scan', {
                                 data: ids,

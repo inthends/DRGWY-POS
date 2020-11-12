@@ -30,6 +30,7 @@ import FeeParkingsPage from '../navigator/fee-parkings';
 import FeeDetailPage from '../navigator/fee-detail';
 import FeeAddPage from '../navigator/fee-add';
 import FeeChargeDetail from '../navigator/fee-charge-detail';
+import ScanScreen from '../navigator/qrcode-scanner';
 
 //import NewsList from '../work/news-list';
 // import CollectionRatePage from '../navigator/analyse/collection-rate';
@@ -44,7 +45,6 @@ import FeeChargeDetail from '../navigator/fee-charge-detail';
 // import EweixiuDetailPage from '../navigator/estate/estate-weixiu-detail';
 // import EstateWeixiuPage from '../navigator/estate/estate-weixiu';
 // import EstateTousuPage from '../navigator/estate/estate-tousu';
-// import ScanScreen from '../navigator/qrcode-scanner';
 // import ScanOnly from '../navigator/ScanOnly';
 // import ScanSS from '../navigator/scan-ss';
 // import XunJianPage from '../navigator/xunjian/xunjian';
@@ -107,6 +107,7 @@ const BuildingNavigator = createStackNavigator({
     // yiqinginfo: YiQingInfoPage,
     // scanForHome: ScanOnly,
     //newsList: NewsList,
+    scan: ScanScreen,
     charge: FeeChargeDetail,
     feeAdd: FeeAddPage,
     feeDetail: FeeDetailPage,
@@ -152,7 +153,6 @@ BuildingNavigator.navigationOptions = ({ navigation }) => ({
 //     e_weixiu: EstateWeixiuPage,
 //     e_tousu: EstateTousuPage,
 //     selectPaidanPerson: SelectPaiDanPerson,
-
 
 //     //报表
 //     collection: CollectionRatePage,
