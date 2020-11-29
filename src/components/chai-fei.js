@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     },
     input: {
         fontSize: 17,
-        marginLeft: title 
+        marginLeft: 10 
     },
     state: {
         fontSize: 17,
