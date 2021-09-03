@@ -1,6 +1,6 @@
 //房间
 import React from 'react';
-import { 
+import {
     Text,
     StyleSheet,
     //View,
@@ -8,11 +8,11 @@ import {
     // FlatList,
     // Linking,
     TouchableOpacity,
-    TouchableWithoutFeedback, 
+    TouchableWithoutFeedback,
     ScrollView
 } from 'react-native';
 import BasePage from '../base/base';
-import { Flex, Icon } from '@ant-design/react-native';
+import { Flex, Icon, Modal } from '@ant-design/react-native';
 import Macro from '../../utils/macro';
 import ScreenUtil from '../../utils/screen-util';
 // import { connect } from 'react-redux';
@@ -22,9 +22,10 @@ import common from '../../utils/common';
 import NavigatorService from './navigator-service';
 import CommonView from '../../components/CommonView';
 //import WorkService from '../work/work-service';
-
+import CheckMobile from '../../components/check-mobile';
 
 export default class FeeRoomsPage extends BasePage {
+
     static navigationOptions = ({ navigation }) => {
         // console.log(1, navigation);
         return {
@@ -42,12 +43,12 @@ export default class FeeRoomsPage extends BasePage {
         super(props);
         let building = common.getValueFromProps(this.props);
         this.state = {
+            unitId: '', 
+            checkMobileShow: false,
             building,
-            floors: [],
+            floors: []
         };
-
     }
-
 
     componentDidMount(): void {
         this.viewDidAppear = this.props.navigation.addListener(
@@ -77,17 +78,17 @@ export default class FeeRoomsPage extends BasePage {
         this.viewDidAppear.remove();
     }
 
+    //跳转到费用页面 
+    onRefresh = () => {
+        this.props.navigation.push('feeDetail', { data: this.state.room });
+    }
+
     render() {
         const { floors, building } = this.state;
-
-
         return (
-
-
             <CommonView style={{ flex: 1 }}>
                 <ScrollView>
                     <Text style={{ paddingLeft: 15, paddingTop: 15, fontSize: 20 }}>{building.allName}</Text>
-
                     {floors.map(floor => (
                         <Flex key={floor.id} align={'start'} direction={'column'}>
                             <Flex style={styles.bb}>
@@ -95,27 +96,49 @@ export default class FeeRoomsPage extends BasePage {
                             </Flex>
                             <Flex wrap='wrap' style={{ paddingLeft: 10, paddingRight: 10, marginTop: 10 }}>
                                 {floor.rooms.map(room => {
+
                                     let color = {};
                                     if (room.color === 2) {
                                         color = styles.orange;
                                     } else if (room.color === 3) {
                                         color = styles.blue74BAF1;
                                     }
+
                                     return (
                                         <TouchableWithoutFeedback key={room.id}
-                                            onPress={() => this.props.navigation.push('feeDetail', { data: room })}>
+                                            onPress={() => {
+                                                //验证手机尾号
+                                                this.setState({ checkMobileShow: true, room, unitId: room.id });
+                                                //this.props.navigation.push('feeDetail', { data: room }); 
+                                            }}>
                                             <Flex style={[styles.item, color]} justify={'center'}>
                                                 <Text style={[styles.title, color]}>{room.name}</Text>
                                             </Flex>
                                         </TouchableWithoutFeedback>
                                     );
-                                },
+                                }
                                 )}
                             </Flex>
                         </Flex>
                     ))}
                 </ScrollView>
 
+
+                {/* 弹出手机号码验证 */}
+                <Modal
+                    transparent
+                    onClose={() => this.setState({ checkMobileShow: false })}
+                    onRequestClose={() => this.setState({ checkMobileShow: false })}
+                    maskClosable
+                    visible={this.state.checkMobileShow}>
+                    <Flex justify={'center'} align={'center'}>
+                        <CheckMobile onClose={() => {
+                            this.setState({ checkMobileShow: false });
+                            //跳转到费用页面 
+                            this.onRefresh();
+                        }} unitId={this.state.unitId} />
+                    </Flex>
+                </Modal>
 
             </CommonView>
 
@@ -126,22 +149,18 @@ export default class FeeRoomsPage extends BasePage {
 const styles = StyleSheet.create({
     all: {
         backgroundColor: Macro.color_sky,
-        flex: 1,
+        flex: 1
     },
     content: {
         backgroundColor: Macro.color_white,
-        flex: 1,
-
-
+        flex: 1
     },
     title: {
         color: '#333',
         fontSize: 16,
     },
 
-
     top: {
-
         fontSize: 18,
         paddingBottom: 15,
     },
@@ -161,12 +180,10 @@ const styles = StyleSheet.create({
     },
 
     left: {
-        flex: 1,
-
+        flex: 1
     },
     right: {
         flex: 3,
-
         paddingTop: 20,
         paddingBottom: 20,
         marginLeft: 20,

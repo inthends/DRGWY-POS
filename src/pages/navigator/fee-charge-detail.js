@@ -1,8 +1,8 @@
-import React  from 'react';
+import React from 'react';
 import {
     View,
     Text,
-    StyleSheet, 
+    StyleSheet,
     TouchableOpacity,
     // StatusBar,
     // FlatList,
@@ -11,7 +11,7 @@ import {
     ScrollView, NativeModules,
 } from 'react-native';
 import BasePage from '../base/base';
-import {  Flex, Icon, WhiteSpace } from '@ant-design/react-native';
+import { Flex, Icon, WhiteSpace } from '@ant-design/react-native';
 import Macro from '../../utils/macro';
 import ScreenUtil from '../../utils/screen-util';
 import { connect } from 'react-redux';
@@ -24,7 +24,7 @@ import CommonView from '../../components/CommonView';
 
 
 class FeeChargeDetail extends BasePage {
-    static navigationOptions = ({ navigation }) => { 
+    static navigationOptions = ({ navigation }) => {
         console.log(1, navigation);
         return {
             tabBarVisible: false,
@@ -60,7 +60,7 @@ class FeeChargeDetail extends BasePage {
         });
     }
     print = () => {
-        const {data} = this.state;
+        const { data } = this.state;
         NavigatorService.RePrintInfo(data.billId).then(res => {
             NativeModules.LHNToast.printTicket({
                 ...res,
@@ -125,7 +125,9 @@ class FeeChargeDetail extends BasePage {
                         <Flex justify={'center'}>
                             <Text style={{
                                 fontSize: 18,
-                            }}>抹零：{data.mlAmount}，合计：{data.amount}</Text>
+                            }}>
+                                {/* 抹零：{data.mlAmount}， */}
+                            合计：{data.amount}</Text>
                         </Flex>
                     </ScrollView>
                 </CommonView>
@@ -247,7 +249,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const mapStateToProps = ({ memberReducer,buildingReducer }) => {
+const mapStateToProps = ({ memberReducer, buildingReducer }) => {
     return {
         selectBuilding: buildingReducer.selectBuilding,
         userInfo: memberReducer.userInfo

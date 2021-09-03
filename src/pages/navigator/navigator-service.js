@@ -3,31 +3,31 @@ import api from '../../utils/api';
 //import common from '../../utils/common';
 
 export default {
-    getFeeStatistics(pageIndex, OrganizeId, pageSize = 10) {
-        return api.postData('/api/MobileMethod/MGetFeeStatistics', { pageIndex, pageSize, OrganizeId });
+    getFeeStatistics(pageIndex, organizeId, pageSize = 10) {
+        return api.postData('/api/MobileMethod/MGetFeeStatistics', { pageIndex, pageSize, organizeId });
     },
     //楼栋或者车库
-    getBuildings(keyValue) {
-        // return api.getData('/api/MobileMethod/MGetPStructs', {keyValue, type: 2});
-        return api.getData('/api/MobileMethod/MGetFeePStructs', { keyValue, type: 2 });
+    getBuildings(keyvalue) {
+        // return api.getData('/api/MobileMethod/MGetPStructs', {keyvalue, type: 2});
+        return api.getData('/api/MobileMethod/MGetFeePStructs', { keyvalue, type: 2 });
     },
     //楼层
-    getFloors(keyValue) {
-        return api.getData('/api/MobileMethod/MGetFeePStructs', { keyValue, type: 4 });
+    getFloors(keyvalue) {
+        return api.getData('/api/MobileMethod/MGetFeePStructs', { keyvalue, type: 4 });
     },
     //车位
-    getParkings(keyValue) {
-        return api.getData('/api/MobileMethod/MGetFeePStructs', { keyValue, type: 9 });
+    getParkings(keyvalue) {
+        return api.getData('/api/MobileMethod/MGetFeePStructs', { keyvalue, type: 9 });
     },
     //房间
-    getRooms(keyValue) {
-        return api.getData('/api/MobileMethod/MGetFeePStructs', { keyValue, type: 5 });
+    getRooms(keyvalue) {
+        return api.getData('/api/MobileMethod/MGetFeePStructs', { keyvalue, type: 5 });
     },
 
     //账单
     getBillList(type, id, isShow, pageIndex, pageSize = 10) {
         let url = '/api/MobileMethod/MGetNotChargeBillList';
-        if (type === '已收') {
+        if (type === '已缴') {
             url = '/api/MobileMethod/MGetChargeBillList';
         }
         return api.postData(url, { pageIndex, pageSize, unitId: id, isShow: isShow });
@@ -95,14 +95,14 @@ export default {
         });
     },
     //服务单详情
-    // serviceDetail(type,keyValue) {
+    // serviceDetail(type,keyvalue) {
     //     let url = '/api/MobileMethod/MGetServicedeskEntity';
     //     if (billType === '报修') {
     //         url = '/api/MobileMethod/MGetRepairEntity';
     //     } else if (billType === '投诉') {
     //         url = '/api/MobileMethod/MGetComplaintEntity';
     //     }
-    //     return api.getData(url,{keyValue});
+    //     return api.getData(url,{keyvalue});
     // }
 
     collectionRate(page, estateId, type) {
@@ -187,8 +187,8 @@ export default {
     saveFee(unitId, bills) {
         return api.postData('/api/MobileMethod/SaveFee', { bills: JSON.stringify(bills) });
     },
-    invalidBillForm(keyValue) {
-        return api.postData('/api/MobileMethod/InvalidBillForm', { keyValue });
+    invalidBillForm(keyvalue) {
+        return api.postData('/api/MobileMethod/InvalidBillForm', { keyvalue });
     },
     billDetailList(billId) {
         return api.postData('/api/MobileMethod/MGetChargeBillDetailList', { billId });

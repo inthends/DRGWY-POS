@@ -1,7 +1,6 @@
 //车位
-import React  from 'react';
+import React from 'react';
 import {
-    View,
     Text,
     StyleSheet,
     // StatusBar,
@@ -12,7 +11,7 @@ import {
     ScrollView,
 } from 'react-native';
 import BasePage from '../base/base';
-import { Flex, Icon } from '@ant-design/react-native';
+import { Flex, Icon, Modal } from '@ant-design/react-native';
 import Macro from '../../utils/macro';
 import ScreenUtil from '../../utils/screen-util';
 // import { connect } from 'react-redux';
@@ -22,9 +21,10 @@ import common from '../../utils/common';
 import NavigatorService from './navigator-service';
 import CommonView from '../../components/CommonView';
 //import WorkService from '../work/work-service';
-
+// import CheckMobile from '../../components/check-mobile';
 
 export default class FeeParkingsPage extends BasePage {
+
     static navigationOptions = ({ navigation }) => {
         // console.log(1, navigation);
         return {
@@ -42,11 +42,12 @@ export default class FeeParkingsPage extends BasePage {
         super(props);
         let building = common.getValueFromProps(this.props);
         this.state = {
+            unitId: '', 
+            checkMobileShow: false,
             building,
             parkings: [],
         };
     }
-
 
     componentDidMount(): void {
         this.viewDidAppear = this.props.navigation.addListener(
@@ -63,6 +64,11 @@ export default class FeeParkingsPage extends BasePage {
 
     componentWillUnmount(): void {
         this.viewDidAppear.remove();
+    }
+
+    //跳转到费用页面 
+    onRefresh = () => {
+        this.navigation.push('feeDetail', { data: this.state.room });
     }
 
     render() {
@@ -82,7 +88,11 @@ export default class FeeParkingsPage extends BasePage {
                             }
                             return (
                                 <TouchableWithoutFeedback key={room.id}
-                                    onPress={() => this.props.navigation.push('feeDetail', { data: room })}>
+                                    onPress={() => {
+                                        //验证手机尾号
+                                        this.setState({ checkMobileShow: true, room, unitId: room.id });
+                                        //this.props.navigation.push('feeDetail', { data: room }); 
+                                    }}>
                                     <Flex style={[styles.item, color]} justify={'center'}>
                                         <Text style={[styles.title, color]}>{room.name}</Text>
                                     </Flex>
@@ -92,6 +102,23 @@ export default class FeeParkingsPage extends BasePage {
                         )}
                     </Flex>
                 </ScrollView>
+
+                {/* 弹出手机号码验证 */}
+                <Modal
+                    transparent
+                    onClose={() => this.setState({ checkMobileShow: false })}
+                    onRequestClose={() => this.setState({ checkMobileShow: false })}
+                    maskClosable
+                    visible={this.state.checkMobileShow}>
+                    <Flex justify={'center'} align={'center'}>
+                        <CheckMobile onClose={() => {
+                            this.setState({ checkMobileShow: false });
+                            //跳转到费用页面 
+                            this.onRefresh();
+                        }} unitId={this.state.unitId} />
+                    </Flex>
+                </Modal>
+
             </CommonView>
         );
     }
@@ -100,24 +127,20 @@ export default class FeeParkingsPage extends BasePage {
 const styles = StyleSheet.create({
     all: {
         backgroundColor: Macro.color_sky,
-        flex: 1,
+        flex: 1
     },
     content: {
         backgroundColor: Macro.color_white,
-        flex: 1,
-
-
+        flex: 1
     },
     title: {
         color: '#333',
-        fontSize: 16,
+        fontSize: 16
     },
 
-
     top: {
-
         fontSize: 18,
-        paddingBottom: 15,
+        paddingBottom: 15
     },
     bottom: {
         color: '#868688',
@@ -127,24 +150,24 @@ const styles = StyleSheet.create({
     button: {
         color: '#868688',
         fontSize: 16,
-        paddingTop: 10,
+        paddingTop: 10
     },
     blue: {
         borderLeftColor: Macro.color_4d8fcc,
-        borderLeftWidth: 8,
+        borderLeftWidth: 8
     },
 
     left: {
-        flex: 1,
-
+        flex: 1
     },
+
     right: {
         flex: 3,
-
         paddingTop: 20,
         paddingBottom: 20,
         marginLeft: 20,
     },
+
     bb: {
         borderStyle: 'solid',
         borderLeftWidth: 4,
@@ -152,6 +175,7 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         marginTop: 15,
     },
+
     se: {
         paddingLeft: 10,
         fontSize: 18,

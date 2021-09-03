@@ -11,7 +11,7 @@ export default class TwoChange extends Component {
             isShow: true,//是否按户显示
             fadeAnim: new Animated.Value(20),
             index: 0,
-            datas: [{ 'title': '未收', select: true }, { 'title': '已收' }],
+            datas: [{ 'title': '未缴', select: true }, { 'title': '已缴' }],
         };
     }
 

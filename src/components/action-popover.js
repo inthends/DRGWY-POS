@@ -1,6 +1,6 @@
 import React, {Component } from 'react';
 import {View, Text,  StyleSheet, TouchableWithoutFeedback, ScrollView} from 'react-native'; 
-import {Flex} from '@ant-design/react-native';
+// import {Flex} from '@ant-design/react-native';
 import Popover from 'react-native-popover-view';
 
 export default class ActionPopover extends Component {
@@ -34,7 +34,7 @@ export default class ActionPopover extends Component {
         const {titles, index} = this.state;
         return (
             <View style={[styles.container, this.props.style]}>
-                <TouchableWithoutFeedback ref={ref => this.touchable = ref} onPress={() => this.showPopover()}>
+                {/* <TouchableWithoutFeedback ref={ref => this.touchable = ref} onPress={() => this.showPopover()}>
                     <Flex style={{height: 40}}>
 
                         <Text style={[{
@@ -43,7 +43,7 @@ export default class ActionPopover extends Component {
                             fontSize: 16,
                         }, this.props.textStyle]}>操作</Text>
                     </Flex>
-                </TouchableWithoutFeedback>
+                </TouchableWithoutFeedback> */}
 
                 <Popover
                     onRequestClose={() => this.closePopover()}

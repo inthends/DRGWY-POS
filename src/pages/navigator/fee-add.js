@@ -49,7 +49,7 @@ class FeeAddPage extends BasePage {
         super(props);
         // let room = common.getValueFromProps(this.props) || {id:'FY-XHF-01-0101'};
         let room = common.getValueFromProps(this.props);
-        console.log('room456', room);
+        //console.log('room456', room);
         this.state = {
             room,
             pageIndex: 1,
@@ -63,10 +63,8 @@ class FeeAddPage extends BasePage {
             code: '',
             price: '0.00',
             needPrint: false,
-            printAgain: false,
-
-            xishu: null,
-
+            printAgain: false, 
+            xishu: null, 
             res: [],
             titles: [],
             items: [],

@@ -80,10 +80,7 @@ class BuildingPage extends BasePage {
         });
     }
 
-
-
-    componentDidMount() {
-
+    componentDidMount() { 
         if (!common.isIOS()) {
             NativeModules.LHNToast.getVersionCode((version, isYse, isLKL, brandName, aa, bb) => {
                 //console.log(aa, bb, 11)
@@ -109,7 +106,7 @@ class BuildingPage extends BasePage {
                                     },
                                 },
                             ],
-                            { cancelable: false },
+                            { cancelable: false }
                         );
 
                     } else {
@@ -118,7 +115,6 @@ class BuildingPage extends BasePage {
                 }).catch(() => {
                     this.initUI();
                 });
-
             });
 
         } else {
@@ -215,6 +211,7 @@ class BuildingPage extends BasePage {
             this.getList();
         });
     };
+    
     loadMore = () => {
         const { data, total, pageIndex } = this.state.dataInfo;
         //console.log('loadmore', this.canAction);

@@ -63,8 +63,7 @@ export default class ChaiFei extends BasePage {
 
         return (
             <View style={{ flex: 1, width: '100%' }}>
-                <TouchableWithoutFeedback onPress={() => {
-
+                <TouchableWithoutFeedback onPress={() => { 
                     Keyboard.dismiss();
                 }}>
                     <Flex direction={'column'} >
