@@ -215,8 +215,10 @@ class FeeDetailPage extends BasePage {
                 }
 
                 case '扫码': {
+
                     NavigatorService.createOrder(ids, isML, mlType, mlScale).then(res => {
                         let posType = res.posType;
+                        
                         if (posType === '银盛') {
                             if (!this.state.isYse) {
                                 // 只有是银盛pos机才能扫码和收款码
@@ -230,7 +232,8 @@ class FeeDetailPage extends BasePage {
                                     transType: 1070, //pos机扫顾客
                                 });
                             }
-                        } else if (posType === '拉卡拉') {
+                        } 
+                        else if (posType === '拉卡拉') {
                             this.setState({
                                 out_trade_no: res.out_trade_no,
                             });

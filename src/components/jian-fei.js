@@ -41,15 +41,15 @@ export default class JianFei extends BasePage {
         }
 
         let p = {
-            ReductionAmount: money,
-            Memo: memo,
-            Rebate: 10,
-            ReductionType: reductionType
+            reductionAmount: money,
+            memo: memo,
+            rebate: 10,
+            reductionType: reductionType
         }
 
         let params = {
-            Data: JSON.stringify(p),
             keyvalue: item.id,
+            Data: JSON.stringify(p)
         };
         api.postData('/api/MobileMethod/ReductionBilling', params).then(res => {
             UDToast.showInfo('操作成功');
